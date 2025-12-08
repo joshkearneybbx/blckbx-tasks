@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* BlckBx Brand Colors */
+    --blckbx-black: 220 5% 12%;        /* #1C1D1F */
+    --blckbx-sand: 36 23% 95%;          /* #F5F3F0 */
+    --blckbx-sand-dark: 36 14% 89%;     /* #E8E5E0 */
+
+    /* Semantic mappings */
+    --background: var(--blckbx-black);
+    --foreground: var(--blckbx-sand);
+
+    --card: var(--blckbx-sand);
+    --card-foreground: 220 5% 12%;
+
+    --popover: var(--blckbx-sand);
+    --popover-foreground: 220 5% 12%;
+
+    --primary: 220 5% 12%;
+    --primary-foreground: var(--blckbx-sand);
+
+    --secondary: var(--blckbx-sand-dark);
+    --secondary-foreground: 220 5% 12%;
+
+    --muted: var(--blckbx-sand-dark);
+    --muted-foreground: 220 5% 40%;
+
+    --accent: var(--blckbx-sand-dark);
+    --accent-foreground: 220 5% 12%;
+
+    --destructive: 0 60% 50%;
+    --destructive-foreground: var(--blckbx-sand);
+
+    --border: 36 10% 85%;
+    --input: 36 10% 85%;
+    --ring: 220 5% 12%;
+    --radius: 0.375rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    font-family: 'EB Garamond', 'Adobe Garamond Pro', Georgia, serif;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "kern" 1, "liga" 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer components {
+  .card-sand {
+    @apply bg-card text-card-foreground rounded-lg;
+  }
+
+  .stat-card {
+    @apply bg-blckbx-sand-dark/50 rounded-md px-6 py-4;
+  }
+}
