@@ -607,6 +607,9 @@ export function TasksTable() {
               <TableHead className="text-blckbx-black/70 font-medium text-xs uppercase tracking-wider">
                 Assistant
               </TableHead>
+              <TableHead className="text-blckbx-black/70 font-medium text-xs uppercase tracking-wider">
+                Created
+              </TableHead>
               <TableHead className="w-[100px] text-center text-blckbx-black/70 font-medium text-xs uppercase tracking-wider">
                 BOH
               </TableHead>
@@ -618,7 +621,7 @@ export function TasksTable() {
           <TableBody>
             {paginatedTasks.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={7} className="h-24 text-center text-blckbx-black/50">
+                <TableCell colSpan={8} className="h-24 text-center text-blckbx-black/50">
                   No tasks found.
                 </TableCell>
               </TableRow>
@@ -657,6 +660,9 @@ export function TasksTable() {
                   </TableCell>
                   <TableCell className="text-blckbx-black/80">{task.client}</TableCell>
                   <TableCell className="text-blckbx-black/80">{task.assistant}</TableCell>
+                  <TableCell className="text-blckbx-black/80 text-sm">
+                    {task.created_at ? format(new Date(task.created_at), "dd MMM yyyy HH:mm") : "—"}
+                  </TableCell>
                   <TableCell className="text-center">
                     <div className="flex flex-col items-center gap-1">
                       <Switch
