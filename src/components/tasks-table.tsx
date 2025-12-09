@@ -106,6 +106,7 @@ export function TasksTable() {
 
   // Selection states
   const [selectedTasks, setSelectedTasks] = useState<Set<string>>(new Set());
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   // Unique values for filters
   const [assistants, setAssistants] = useState<string[]>([]);
@@ -290,6 +291,27 @@ export function TasksTable() {
       setSelectedTasks(new Set());
     }
     setUpdating(null);
+  };
+
+  // Bulk delete
+  const bulkDelete = async () => {
+    const taskIds = Array.from(selectedTasks);
+    if (taskIds.length === 0) return;
+
+    setUpdating("bulk");
+    const { error } = await supabase
+      .from("tasks")
+      .delete()
+      .in("id", taskIds);
+
+    if (error) {
+      console.error("Error deleting tasks:", error);
+    } else {
+      setTasks((prev) => prev.filter((task) => !selectedTasks.has(task.id)));
+      setSelectedTasks(new Set());
+    }
+    setUpdating(null);
+    setShowDeleteConfirm(false);
   };
 
   // Selection handlers
@@ -772,6 +794,39 @@ export function TasksTable() {
           >
             Mark as FOH
           </Button>
+          <div className="h-6 w-px bg-blckbx-sand/20" />
+          {showDeleteConfirm ? (
+            <>
+              <span className="text-sm text-red-400">Delete {selectedTasks.size} tasks?</span>
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={bulkDelete}
+                disabled={updating === "bulk"}
+                className="text-red-400 hover:text-red-300 hover:bg-red-500/10"
+              >
+                Confirm
+              </Button>
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => setShowDeleteConfirm(false)}
+                className="text-blckbx-sand/70 hover:text-blckbx-sand hover:bg-blckbx-sand/10"
+              >
+                Cancel
+              </Button>
+            </>
+          ) : (
+            <Button
+              size="sm"
+              variant="ghost"
+              onClick={() => setShowDeleteConfirm(true)}
+              disabled={updating === "bulk"}
+              className="text-red-400 hover:text-red-300 hover:bg-red-500/10"
+            >
+              Delete
+            </Button>
+          )}
           <div className="h-6 w-px bg-blckbx-sand/20" />
           <Button
             size="sm"
