@@ -28,6 +28,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { StatCard } from "@/components/stat-card";
 import { Badge } from "@/components/ui/badge";
 import { Search, Download, CalendarIcon, X, ChevronLeft, ChevronRight } from "lucide-react";
@@ -360,6 +366,7 @@ export function TasksTable() {
   }
 
   return (
+    <TooltipProvider>
     <div className="space-y-6">
       {/* Stats Row */}
       <div className="grid grid-cols-4 gap-4">
@@ -534,7 +541,7 @@ export function TasksTable() {
         <Button
           variant="outline"
           onClick={exportCSV}
-          className="ml-auto bg-white border-blckbx-sand-dark hover:bg-blckbx-sand-dark/30"
+          className="ml-auto bg-white border-blckbx-sand-dark hover:bg-blckbx-sand-dark/30 text-blckbx-black"
         >
           <Download className="h-4 w-4 mr-2" />
           Export CSV
@@ -609,8 +616,19 @@ export function TasksTable() {
                       className="border-blckbx-black/30 data-[state=checked]:bg-[#6B1488] data-[state=checked]:border-[#6B1488]"
                     />
                   </TableCell>
-                  <TableCell className="font-medium text-blckbx-black">
-                    {task.task_name}
+                  <TableCell className="font-medium text-blckbx-black max-w-[200px]">
+                    <Tooltip delayDuration={0}>
+                      <TooltipTrigger asChild>
+                        <span className="block truncate cursor-pointer">{task.task_name}</span>
+                      </TooltipTrigger>
+                      <TooltipContent
+                        side="top"
+                        className="max-w-[400px] text-sm bg-blckbx-black text-blckbx-sand px-4 py-3 rounded-xl shadow-xl border-0"
+                        sideOffset={8}
+                      >
+                        {task.task_name}
+                      </TooltipContent>
+                    </Tooltip>
                   </TableCell>
                   <TableCell className="text-blckbx-black/70">
                     {task.task_description}
@@ -676,7 +694,7 @@ export function TasksTable() {
               size="sm"
               onClick={() => goToPage(currentPage - 1)}
               disabled={currentPage === 1}
-              className="bg-white border-blckbx-sand-dark hover:bg-blckbx-sand-dark/30 disabled:opacity-50"
+              className="bg-white border-blckbx-sand-dark hover:bg-blckbx-sand-dark/30 disabled:opacity-50 text-blckbx-black"
             >
               <ChevronLeft className="h-4 w-4 mr-1" />
               Previous
@@ -707,7 +725,7 @@ export function TasksTable() {
                           "min-w-[36px]",
                           currentPage === page
                             ? "bg-blckbx-black text-blckbx-sand hover:bg-blckbx-black/90"
-                            : "bg-white border-blckbx-sand-dark hover:bg-blckbx-sand-dark/30"
+                            : "bg-white border-blckbx-sand-dark hover:bg-blckbx-sand-dark/30 text-blckbx-black"
                         )}
                       >
                         {page}
@@ -722,7 +740,7 @@ export function TasksTable() {
               size="sm"
               onClick={() => goToPage(currentPage + 1)}
               disabled={currentPage === totalPages}
-              className="bg-white border-blckbx-sand-dark hover:bg-blckbx-sand-dark/30 disabled:opacity-50"
+              className="bg-white border-blckbx-sand-dark hover:bg-blckbx-sand-dark/30 disabled:opacity-50 text-blckbx-black"
             >
               Next
               <ChevronRight className="h-4 w-4 ml-1" />
@@ -766,5 +784,6 @@ export function TasksTable() {
         </div>
       )}
     </div>
+    </TooltipProvider>
   );
 }
