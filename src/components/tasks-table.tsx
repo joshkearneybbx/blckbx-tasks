@@ -239,8 +239,12 @@ export function TasksTable() {
     }
 
     setFilteredTasks(result);
-    setCurrentPage(1); // Reset to first page when filters change
   }, [tasks, searchQuery, assistantFilter, clientFilter, bohFohFilter, datePreset, dateRange, getDateRangeFromPreset, statFilter]);
+
+  // Reset page only when filters change, not when tasks update
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, assistantFilter, clientFilter, bohFohFilter, datePreset, dateRange, statFilter]);
 
   useEffect(() => {
     fetchTasks();
