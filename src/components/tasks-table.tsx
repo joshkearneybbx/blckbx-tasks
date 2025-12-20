@@ -43,18 +43,35 @@ import { cn } from "@/lib/utils";
 
 // FOH Keywords - if these appear, suggest FOH (takes priority over BOH)
 const FOH_KEYWORDS = [
+  // Service providers
   "plumber", "electrician", "tradesman", "handyman", "cleaner", "gardener",
+  // Bookings & reservations
   "book", "booking", "reserve", "reservation",
   "appointment", "availability",
-  "confirm", "chase", "follow up", "follow-up"
+  // Follow-ups
+  "confirm", "chase", "follow up", "follow-up", "catch up",
+  // Quick actions
+  "check", "call", "update", "order", "add",
+  "calendar", "daily", "weekly", "shop",
+  "delivery", "email"
 ];
 
-// BOH Keywords for auto-categorisation (more specific, removed generic ones)
+// BOH Keywords for auto-categorisation
 const BOH_KEYWORDS = [
+  // Research & Planning
   "research", "investigate", "explore", "compare", "review", "enquiry", "inquiry", "quote", "quotes",
+  "ideas", "options", "plan",
+  // Travel
   "itinerary", "accommodation", "hotel", "flight", "flights", "trip", "travel",
-  "birthday planning", "wedding planning", "party planning", "gift ideas", "present ideas",
+  // Events & Gifts
+  "birthday planning", "wedding planning", "party planning",
+  "gift ideas", "present ideas", "christmas gift", "christmas present", "birthday gift",
+  "gift", "present", "hamper", "budget",
+  // Activities
+  "activities", "activity", "fashion", "exhibitions", "cinema", "meal", "local",
+  // Admin & Services
   "insurance", "application", "registration", "contract", "renewal",
+  // Property
   "property", "house", "renovation"
 ];
 
